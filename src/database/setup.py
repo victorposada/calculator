@@ -11,6 +11,7 @@ def createDatabase():
                 n2 real,
                 operation string,
                 date date,
+                clientIp string,
                 total real
             )
         """)
@@ -30,7 +31,8 @@ def setupInitialValues():
         n2 = 0
         total = 0
         operation = "setup"
-        con.execute("INSERT INTO calculations (n1, n2, operation, date, total) VALUES (?, ?, ?, ?, ?)", (n1, n2, operation, date, total))
+        clientIp = "127.0.0.1"
+        con.execute("INSERT INTO calculations (n1, n2, operation, date, clientIp, total) VALUES (?, ?, ?, ?, ?, ?)", (n1, n2, operation, date, clientIp, total))
         con.commit()
         print("Values inserted successfully")
 

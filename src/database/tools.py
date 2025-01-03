@@ -1,7 +1,7 @@
 import sqlite3
 from datetime import datetime
 
-def writeCalculations(n1, n2, operation):
+def writeCalculations(n1, n2, operation, clientIp):
 
     con = sqlite3.connect("database.db")
     try:
@@ -27,8 +27,9 @@ def writeCalculations(n1, n2, operation):
                 case _:
                     print(f"Invalid operation: {operation}")
                     return
-  
-        con.execute("INSERT INTO calculations (n1, n2, operation, date, total) VALUES (?, ?, ?, ?, ?)", (n1, n2, operation, date, total))
+        
+        total = round(total, 2)
+        con.execute("INSERT INTO calculations (n1, n2, operation, date, clientIp, total) VALUES (?, ?, ?, ?, ?, ?)", (n1, n2, operation, date, clientIp, total))
         con.commit()
         print("Values inserted successfully")
         

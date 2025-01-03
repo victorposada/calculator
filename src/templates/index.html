@@ -1,27 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>calculator</title>
-	<link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
-	<link href="{{ url_for('static', path='/favicon.svg') }}" rel="icon">
+  <meta charset="UTF-8">
+  <title>[calculator]</title>
+  <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', path='/favicon.svg') }}" rel="icon" alt="Calculator Favicon">
 </head>
+
 <body>
   <div class="calculator">
-    <h1>Calculator</h1>
-    <form action="/calculate" method="POST">
-      <input type="number" name="number1" placeholder="Enter first number" required>
-      <input type="number" name="number2" placeholder="Enter second number" required>
-      <select name="operation" required>
-        <option value="add">Addition (+)</option>
-        <option value="subtract">Subtraction (-)</option>
-        <option value="multiply">Multiplication (*)</option>
-        <option value="divide">Division (/)</option>
-      </select>
-      <button type="submit">Calculate</button>
+    <h1>[calculator]</h1>
+    <form action="/" method="GET">
+      <div>
+        <input type="number" name="n1" id="n1" placeholder="Enter first number" required aria-required="true" max="99" min="-99">
+      </div>
+      <div>
+        <input type="number" name="n2" id="n2" placeholder="Enter second number" required aria-required="true" max="99" min="-99">
+      </div>
+      <div>
+        <select name="operation" id="operation" required>
+          <option value="add">Addition (+)</option>
+          <option value="sub">Subtraction (-)</option>
+          <option value="mul">Multiplication (*)</option>
+          <option value="div">Division (/)</option>
+        </select>
+      </div>
+      <div>
+        <button type="submit">Calculate</button>
+      </div>
     </form>
-  </div>
-</body>
-</html>
 
+    {% if result %}
+      <div class="result">
+        <h2>Total: <span>{{ result }}</span></h2>
+      </div>
+    {% endif %}
+  </div>
+
+  <footer>
+    <p>Made with ❤️ by [Your Name or Team]</p>
+  </footer>
+</body>
+
+</html>

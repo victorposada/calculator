@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from database.tools import writeCalculations, getCurrentTotal
 
 app = FastAPI()
 
@@ -17,13 +18,18 @@ async def read_item(request: Request, id: str):
     )
 
 @app.get("/calculate/")
-async def read_item(n1: int = 2, n2: int = 3):
-    result = n1 + n2
+async def read_item(n1: int = 2, n2: int = 3, operation: str = "add"):
+    writeCalculations(n1, n2, operation)
+    result = getCurrentTotal()
     return {"Hello": result}
 
 
 @app.get("/", response_class=HTMLResponse)
-async def read_index(request: Request):
+async def calculate(request: Request, n1: int = 0, n2: int = 0, operation: str = "add"):
+    clientIp = request.client.host
+    writeCalculations(n1, n2, operation, clientIp)
+    result = getCurrentTotal()  
     return templates.TemplateResponse(
-        request=request, name="index.html"
+        "index.html",
+        {"request": request, "n1": n1, "n2": n2, "operation": operation, "result": result}
     )
