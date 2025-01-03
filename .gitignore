@@ -1,7 +1,7 @@
 __pycache__/
 pyvenv.cfg
 *.py[cod]
-
+*.db
 lib/
 lib64/
 

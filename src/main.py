@@ -16,3 +16,14 @@ async def read_item(request: Request, id: str):
         request=request, name="item.html", context={"id": id}
     )
 
+@app.get("/calculate/")
+async def read_item(n1: int = 2, n2: int = 3):
+    result = n1 + n2
+    return {"Hello": result}
+
+
+@app.get("/", response_class=HTMLResponse)
+async def read_index(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="index.html"
+    )
